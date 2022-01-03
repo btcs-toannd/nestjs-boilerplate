@@ -1,39 +1,60 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-  
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Nest Boilerplate
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- prisma - next gen DB ORM
+- auto validation
+- API versioning
+- swagger - OPENAPI docs generate
+- helmet - security HTTP header
+- cors
 
 ## Installation
 
 ```bash
 $ yarn install
+```
+
+### Setup local db on Docker [optional]
+
+1. Create and edit .env `cp .env.example .env`
+
+Edit postgres user
+
+```
+# for docker compose
+POSTGRES_USER="local_user"
+POSTGRES_PASSWORD="local12345"
+POSTGRES_DB="localdb"
+```
+
+2. Run docker compose
+
+```bash
+$ docker compose up -d
+```
+
+When you want to drop dockers, run a command below
+
+```bash
+$ docker compose down
+```
+
+### Edit variables in .env
+
+Make sure you have changed ENVIRONMENT VARIABLES in .env
+
+### Setup Prisma Client API
+
+> View [Prisma - DB ORM](/#prisma-db-orm) below for more information
+
+```bash
 $ npx prisma generate
 ```
 
 ## Running the app
+
+1. Start server
 
 ```bash
 # development
@@ -45,6 +66,11 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
+
+2. Access to server
+
+- API endpoint: http://localhost:3000/v1/users
+- API docs: http://localhost:3000/api
 
 ## Test
 
@@ -59,8 +85,37 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
-## Migration
+## Prisma - DB ORM <div id="prisma-db-orm" />
+
+### Generate Prisma Client - [Prisma doc](https://www.prisma.io/docs/concepts/components/prisma-client)
+
+You have to run `npx prisma generate` or `npx prisma migrate dev` _after you clone this repo_ to generate your Prisma Client API.
+
+> You have to config `DATABASE_URL` in .env before run prisma command
+
+You will change DB schema by make changes to Prima schema file `prisma/schema.prisma`.
+
+Whenever you make changes to your Prisma schema in the future, you manually need to invoke prisma generate in order to accomodate the changes in your Prisma Client API.
 
 ```bash
+$ npx prisma generate
+```
+
+### Migrate - [Prisma doc](https://www.prisma.io/docs/concepts/components/prisma-migrate)
+
+After changed prisma schema, you will use Prisma Migrate to update the tables in database.
+
+> Note: generate is called under the hood by default, after running prisma migrate dev.
+
+```bash
+// migrate db
 $ npx prisma migrate dev --name 'add user table'
+```
+
+### Prisma Studio - [Prisma doc](https://www.prisma.io/docs/concepts/components/prisma-studio)
+
+Prisma Studio is a visual editor for the data in your database. Note that Prisma Studio is not open source but you can still create issues in the prisma/studio repo.
+
+```bash
+$ npx prisma studio
 ```
