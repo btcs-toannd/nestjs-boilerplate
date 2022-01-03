@@ -11,9 +11,15 @@ import {
 import { UserService } from './user.service';
 import { User as UserModel } from '@prisma/client';
 import { CreateUserDto, UpdateUserDto } from './dtos/index.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-@Controller('user')
-export class UserController {
+@ApiTags('users')
+@ApiBearerAuth()
+@Controller({
+  path: 'users',
+  version: '1',
+})
+export class UserControllerV1 {
   constructor(private readonly userService: UserService) {}
 
   @Post()
