@@ -3,6 +3,7 @@
 ## Description
 
 - prisma - next gen DB ORM
+- config .env
 - auto validation
 - API versioning
 - swagger - OPENAPI docs generate
@@ -46,7 +47,7 @@ Make sure you have changed ENVIRONMENT VARIABLES in .env
 
 ### Setup Prisma Client API
 
-> View [Prisma - DB ORM](/#prisma-db-orm) below for more information
+> View [Prisma - DB ORM](#prisma---db-orm) below for more information
 
 ```bash
 $ npx prisma generate
@@ -85,7 +86,7 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
-## Prisma - DB ORM <div id="prisma-db-orm" />
+## Prisma - DB ORM
 
 ### Generate Prisma Client - [Prisma doc](https://www.prisma.io/docs/concepts/components/prisma-client)
 
